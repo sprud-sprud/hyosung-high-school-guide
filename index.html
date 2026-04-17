@@ -397,9 +397,12 @@ select.form-input{height:38px;cursor:pointer}
           <div class="talk-box">
             <div class="talk-header">💬 교사 Talk <span style="font-size:10px; font-weight:400; color:#8aaac8;">실시간 소통</span></div>
             <div id="talk-messages" class="talk-messages"></div>
-            <div class="talk-input-area">
-              <input type="text" id="talk-input" class="talk-input" placeholder="메시지를 입력하세요..." onkeydown="if(event.key==='Enter')sendTalk()">
-              <button class="btn btn-primary btn-sm" onclick="sendTalk()">전송</button>
+            <div style="display:flex; flex-direction:column; gap:6px; padding:10px; background:#f8fbff; border-top:1px solid #e1e8f0;">
+              <input type="text" id="talk-name-input-direct" class="form-input" style="height:32px; font-size:12px; width:100px;" placeholder="이름">
+              <div style="display:flex; gap:6px;">
+                <input type="text" id="talk-input" class="talk-input" placeholder="메시지를 입력하세요..." onkeydown="if(event.key==='Enter')sendTalk()">
+                <button class="btn btn-primary btn-sm" onclick="sendTalk()">전송</button>
+              </div>
             </div>
           </div>
         </div>
@@ -776,20 +779,19 @@ function deleteTalk(i){
 }
 
 function sendTalk(){
-  const input=document.getElementById('talk-input');
-  const msg=input.value.trim();
-  if(!msg)return;
+  const nameInput=document.getElementById('talk-name-input-direct');
+  const msgInput=document.getElementById('talk-input');
+  const name=nameInput.value.trim();
+  const msg=msgInput.value.trim();
   
-  if(!state.teacherName){
-    document.getElementById('modal-talk-name').style.display='flex';
-    return;
-  }
+  if(!name){alert('이름을 입력해주세요.');return;}
+  if(!msg)return;
   
   const now=new Date();
   const time=`${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-  state.talkList.push({id:Date.now(), name:state.teacherName, msg, date:time, me:true});
+  state.talkList.push({id:Date.now(), name, msg, date:time, me:true});
   lsSet('hs_talk_list', state.talkList);
-  input.value='';
+  msgInput.value='';
   renderTalk();
 }
 
