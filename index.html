@@ -15,8 +15,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .nav-logo-sub{font-size:10px;font-weight:400;color:rgba(255,255,255,0.75);white-space:nowrap}
 .nav-btn{background:none;border:none;color:rgba(255,255,255,0.85);padding:6px 9px;border-radius:6px;cursor:pointer;font-size:12px;white-space:nowrap;transition:all 0.15s;flex-shrink:0}
 .nav-btn:hover,.nav-btn.active{background:rgba(255,255,255,0.18);color:white}
-.nav-btn.admin-tab{background:rgba(255,200,0,0.2);color:#ffe066;border:1px solid rgba(255,200,0,0.3)}
-.admin-badge{background:#ffe066;color:#7a5200;font-size:10px;padding:1px 5px;border-radius:8px;margin-left:3px;font-weight:700}
 .main{flex:1;max-width:1100px;margin:0 auto;padding:24px 16px;width:100%}
 .page{display:none}.page.active{display:block}
 .hero{background:linear-gradient(135deg,#0d4a9c,#1a6fd4);color:white;border-radius:16px;padding:44px 40px;margin-bottom:28px;position:relative;overflow:hidden}
@@ -138,6 +136,28 @@ select.form-input{height:38px;cursor:pointer}
 .pill-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .pill{background:#f0f4f8;color:#5a7a9a;border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600}
 .admin-panel{background:#fffbea;border:1px solid #ffe066;border-radius:10px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+
+/* ── Lounge Layout ── */
+.lounge-grid{display:grid;grid-template-columns:1fr 1.2fr 1.5fr;gap:20px;align-items:start}
+@media (max-width:900px){.lounge-grid{grid-template-columns:1fr}}
+.lounge-col{display:flex;flex-direction:column;gap:16px}
+.talk-box{background:white;border-radius:12px;border:1px solid #dce8f5;display:flex;flex-direction:column;height:500px;overflow:hidden}
+.talk-header{background:#f8fbff;padding:12px 16px;border-bottom:1px solid #dce8f5;font-weight:700;font-size:14px;color:#0d4a9c;display:flex;justify-content:space-between;align-items:center}
+.talk-messages{flex:1;padding:16px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;background:#f0f4f8}
+.msg{max-width:85%;padding:8px 12px;border-radius:12px;font-size:13px;line-height:1.5;position:relative}
+.msg-other{background:white;align-self:flex-start;border-bottom-left-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,0.05)}
+.msg-me{background:#ffe066;color:#4a3a00;align-self:flex-end;border-bottom-right-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,0.05)}
+.msg-info{font-size:10px;color:#8aaac8;margin-top:4px;display:flex;justify-content:space-between}
+.talk-input-area{padding:12px;background:white;border-top:1px solid #dce8f5;display:flex;gap:8px}
+.talk-input{flex:1;border:1px solid #c8daf0;border-radius:20px;padding:8px 14px;font-size:13px;outline:none}
+.talk-input:focus{border-color:#1a6fd4}
+.vote-box{background:#fffbea;border:1px solid #ffe066;border-radius:10px;padding:14px;margin-top:10px}
+.vote-title{font-size:13px;font-weight:700;color:#7a5200;margin-bottom:8px;display:flex;align-items:center;gap:4px}
+.vote-option{background:white;border:1px solid #ffe066;border-radius:6px;padding:8px 12px;margin-bottom:6px;cursor:pointer;font-size:12px;display:flex;justify-content:space-between;transition:all 0.15s}
+.vote-option:hover{background:#fff9e6}
+.vote-option.voted{border-color:#0d4a9c;background:#e0edff;color:#0d4a9c}
+.vote-bar-bg{height:4px;background:#eee;border-radius:2px;margin-top:4px;overflow:hidden}
+.vote-bar-fill{height:100%;background:#ffe066;transition:width 0.3s}
 </style>
 </head>
 <body>
@@ -213,16 +233,6 @@ select.form-input{height:38px;cursor:pointer}
           <div class="card-icon" style="background:#e0f5e9;color:#0a7a3a">🌏</div>
           <h3>영재학급 & 경시 지원</h3>
           <p>수학·과학 영재학급 운영, 각종 올림피아드 및 경시대회 대비 특별반을 통해 최상위권 학생을 집중 지도합니다.</p>
-        </div>
-      </div>
-      <div class="section-block">
-        <h3>📅 2025 학년도 주요 일정</h3>
-        <div class="timeline">
-          <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">3월 — 신입생 오리엔테이션 & 진로탐색 캠프</div><div class="tl-body">1학년 전체 대상. 흥미·적성 검사, 진로 로드맵 초안 작성</div></div>
-          <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">5월 — 학부모 대상 입시 설명회 (1차)</div><div class="tl-body">2028 대입 개편 안내 및 고교학점제 과목 선택 가이드</div></div>
-          <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">7월 — 대학 탐방 프로그램 (이공계/인문계 분반)</div><div class="tl-body">서울대, KAIST, 연세대, 고려대 등 캠퍼스 투어 및 학과 설명회</div></div>
-          <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">9월 — 모의 학생부 종합전형 평가 실습</div><div class="tl-body">자기소개서 및 활동 포트폴리오 피드백 세션</div></div>
-          <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">11월 — 수능 이후 정시 전략 특강</div><div class="tl-body">입시전문가 초빙 특강 및 개별 수시·정시 통합 상담</div></div>
         </div>
       </div>
     </div>
@@ -344,12 +354,6 @@ select.form-input{height:38px;cursor:pointer}
         <div class="case-tags"><span class="tag tag-blue">내신 1.2</span><span class="tag tag-green">과학중점</span><span class="tag tag-amber">AI동아리</span></div>
         <div class="case-body">"수학적 원리를 코딩으로 구현하는 과정을 세특에 녹여냈습니다. 특히 3학년 때 진행한 '머신러닝을 활용한 교내 급식 잔반 예측' 프로젝트가 좋은 평가를 받은 것 같습니다."</div>
       </div>
-      <div class="case-card">
-        <div class="case-uni">성균관대학교 의예과</div>
-        <div class="case-major">2024학년도 학과모집 합격</div>
-        <div class="case-tags"><span class="tag tag-blue">내신 1.05</span><span class="tag tag-red">대연학사</span><span class="tag tag-green">생명과학II</span></div>
-        <div class="case-body">"단순 암기가 아닌 원리 이해 중심의 학습이 중요했습니다. 대연학사에서의 집중 학습 시간과 선생님들과의 1:1 멘토링이 큰 도움이 되었습니다."</div>
-      </div>
     </div>
 
     <!-- Q&A -->
@@ -378,30 +382,46 @@ select.form-input{height:38px;cursor:pointer}
       <h2 class="section-title">교사 라운지</h2>
       <p class="section-sub">선생님들만의 소통 공간 및 업무 자료실입니다.</p>
       
-      <div class="section-block" style="background:#f8fbff; border:2px dashed #0d4a9c; text-align:center; padding:30px;">
-        <h3 style="margin-bottom:15px;">📂 교사 업무 노션(Notion) 바로가기</h3>
-        <p style="margin-bottom:20px; color:#5a7a9a;">교육과정 편성표, 진학 통계 자료, 회의록 등 주요 업무 자료를 확인하세요.</p>
-        <a href="https://www.notion.so/3c8dd1bfa0aa8386b43981f33a7b1f12?source=copy_link" target="_blank" class="btn btn-primary" style="padding:12px 30px; font-size:15px; text-decoration:none; display:inline-block;">노션 워크스페이스 접속</a>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="write-box">
-        <h3>자유게시판 (교사용)</h3>
-        <div class="form-row">
-          <label class="form-label">카테고리</label>
-          <select id="lounge-cat" class="form-input">
-            <option value="공지">📢 공지사항</option>
-            <option value="정보">💡 정보공유</option>
-            <option value="친목">☕ 친목/잡담</option>
-            <option value="건의">🙋 건의사항</option>
-          </select>
+      <div class="lounge-grid">
+        <!-- Col 1: Notion Link -->
+        <div class="lounge-col">
+          <div class="section-block" style="background:#f8fbff; border:2px dashed #0d4a9c; text-align:center; padding:24px; height:100%;">
+            <h3 style="margin-bottom:12px; font-size:15px;">📂 업무 노션</h3>
+            <p style="margin-bottom:16px; color:#5a7a9a; font-size:12px;">편성표, 통계, 회의록 등<br>주요 업무 자료실</p>
+            <a href="https://www.notion.so/3c8dd1bfa0aa8386b43981f33a7b1f12?source=copy_link" target="_blank" class="btn btn-primary" style="padding:10px 20px; font-size:13px; text-decoration:none; display:inline-block; width:100%;">노션 접속</a>
+          </div>
         </div>
-        <div class="form-row"><label class="form-label">제목</label><input type="text" id="lounge-title" class="form-input" placeholder="제목을 입력하세요"></div>
-        <div class="form-row"><label class="form-label">내용</label><textarea id="lounge-content" class="form-input" placeholder="내용을 입력하세요"></textarea></div>
-        <button class="btn btn-primary" style="width:100%" onclick="submitLounge()">게시글 등록</button>
+
+        <!-- Col 2: Teacher Talk -->
+        <div class="lounge-col">
+          <div class="talk-box">
+            <div class="talk-header">💬 교사 Talk <span style="font-size:10px; font-weight:400; color:#8aaac8;">실시간 소통</span></div>
+            <div id="talk-messages" class="talk-messages"></div>
+            <div class="talk-input-area">
+              <input type="text" id="talk-input" class="talk-input" placeholder="메시지를 입력하세요..." onkeydown="if(event.key==='Enter')sendTalk()">
+              <button class="btn btn-primary btn-sm" onclick="sendTalk()">전송</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Col 3: Board & Vote -->
+        <div class="lounge-col">
+          <div class="write-box" style="padding:16px; margin-bottom:12px;">
+            <h3 style="font-size:14px; margin-bottom:10px;">📝 자유게시판</h3>
+            <div class="form-row">
+              <select id="lounge-cat" class="form-input" style="height:32px; font-size:12px;">
+                <option value="공지">📢 공지</option>
+                <option value="정보">💡 정보</option>
+                <option value="투표">📊 투표</option>
+              </select>
+            </div>
+            <input type="text" id="lounge-title" class="form-input" style="margin-bottom:8px; height:32px; font-size:12px;" placeholder="제목">
+            <textarea id="lounge-content" class="form-input" style="min-height:60px; font-size:12px; margin-bottom:8px;" placeholder="내용 (투표 시 선택지를 쉼표로 구분하여 입력)"></textarea>
+            <button class="btn btn-primary btn-sm" style="width:100%" onclick="submitLounge()">등록</button>
+          </div>
+          <div id="lounge-list"></div>
+        </div>
       </div>
-      <div id="lounge-list"></div>
     </div>
   </main>
 
@@ -413,15 +433,13 @@ select.form-input{height:38px;cursor:pointer}
       </div>
       <div class="footer-info">
         <div class="footer-info-row"><strong>주소</strong> 경기 성남시 수정구 심곡로16 효성고등학교</div>
-        <div class="footer-info-row"><strong>교무실</strong> 031-723-6240 (08:00~16:30) &nbsp; <strong>행정실</strong> 031-723-6240 (08:00~16:30) &nbsp; <strong>당직실</strong> 031-723-8399 (야간·휴일) &nbsp; <strong>Fax</strong> 031-723-6301 (행정실)</div>
+        <div class="footer-info-row"><strong>교무실</strong> 031-723-6240 (08:00~16:30) &nbsp; <strong>행정실</strong> 031-723-6240 (08:00~16:30)</div>
       </div>
     </div>
     <div class="footer-divider"></div>
     <div class="footer-bottom">
       <div class="footer-copy">Copyright © Gyeonggido Office of Education, All Rights Reserved.</div>
       <div class="footer-links">
-        <a onclick="alert('준비 중입니다.')">개인정보처리방침</a>
-        <a onclick="alert('준비 중입니다.')">저작권보호정책</a>
         <a href="https://hyosung-h.goesn.kr/" target="_blank">학교 공식 홈페이지</a>
         <a id="admin-link" class="footer-admin-link" onclick="openAdminAuth()">관리자</a>
       </div>
@@ -482,19 +500,6 @@ select.form-input{height:38px;cursor:pointer}
   </div>
 </div>
 
-<div id="modal-cms" class="modal-overlay" style="display:none">
-  <div class="modal" style="max-width:600px">
-    <h2>콘텐츠 수정</h2>
-    <p id="cms-page-label"></p>
-    <textarea id="cms-content" class="form-input" style="min-height:200px;margin-bottom:12px"></textarea>
-    <div id="cms-alert"></div>
-    <div class="modal-btns">
-      <button class="btn btn-ghost" onclick="closeModal('modal-cms')">닫기</button>
-      <button class="btn btn-primary" onclick="saveCms()">저장하기</button>
-    </div>
-  </div>
-</div>
-
 <script>
 const lsGet=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch{return d}};
 const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
@@ -506,15 +511,17 @@ const state = {
   casesPassword: lsGet('hs_cases_pw', 'hs2026'),
   loungePin: '6240',
   qnaList: lsGet('hs_qna_list', [
-    {id:1, name:'김철수 학부모', pw:'1234', title:'고교학점제에서 내신 관리가 더 어려워지지 않나요?', body:'내신이 5등급제로 바뀌면 변별력이 떨어질까 봐 걱정입니다. 학교에서는 어떻게 대비하고 계신가요?', answer:'효성고는 서·논술형 평가 비중을 확대하고, 학생의 역량이 드러나는 세특 기록을 강화하여 대학에서 충분히 변별력을 가질 수 있도록 지도하고 있습니다.', date:'2025.03.12'},
-    {id:2, name:'이영희 학부모', pw:'1234', title:'수시와 정시 중 어느 쪽을 준비해야 할까요?', body:'아이 성적이 애매해서 고민입니다. 효성고는 수시 위주인가요, 정시 위주인가요?', answer:'효성고는 수시(학종)를 기본으로 하되, 수능 최저 학력 기준 충족을 위한 정시 대비 수업을 병행합니다. 1:1 상담을 통해 아이에게 가장 유리한 전형을 함께 찾아드립니다.', date:'2025.03.18'}
+    {id:1, name:'김철수 학부모', pw:'1234', title:'고교학점제에서 내신 관리가 더 어려워지지 않나요?', body:'내신이 5등급제로 바뀌면 변별력이 떨어질까 봐 걱정입니다.', answer:'효성고는 서·논술형 평가 비중을 확대하고 있습니다.', date:'2025.03.12'}
   ]),
   loungeList: lsGet('hs_lounge_list', [
-    {id:1, title:'2025학년도 1학기 교육과정 편성표 최종안', body:'각 학년 부장님들께서는 확인 부탁드립니다.', cat:'공지', date:'2025.03.02'},
-    {id:2, title:'진학 상담용 대학별 환산 점수 엑셀 공유', body:'업무 드라이브에도 올려두었습니다.', cat:'정보', date:'2025.03.10'}
+    {id:1, title:'1학기 교육과정 편성표 최종안', body:'부장님들 확인 부탁드립니다.', cat:'공지', date:'2025.03.02'},
+    {id:2, title:'급식 메뉴 선호도 조사', body:'한식,양식,중식,일식', cat:'투표', date:'2025.03.15', vote:{options:['한식','양식','중식','일식'], counts:[5,3,2,1], voted:[]}}
   ]),
-  currentQnaEdit: null,
-  currentCmsPage: null
+  talkList: lsGet('hs_talk_list', [
+    {id:1, name:'진학부장', msg:'오늘 3교시 회의 잊지 마세요!', date:'10:20', me:false},
+    {id:2, name:'나', msg:'네, 알겠습니다.', date:'10:25', me:true}
+  ]),
+  currentQnaEdit: null
 };
 
 function showPage(id){
@@ -524,13 +531,7 @@ function showPage(id){
   const btn = Array.from(document.querySelectorAll('.nav-btn')).find(b=>b.textContent===(id==='home'?'홈':id==='curriculum'?'교육과정':id==='suneung2028'?'2028 대입':id==='universities'?'주요대학':id==='roadmap'?'전공로드맵':id==='saegibu'?'생기부가이드':id==='cases'?'진학사례':id==='qna'?'학부모Q&A':id==='lounge'?'교사라운지':''));
   if(btn) btn.classList.add('active');
   window.scrollTo(0,0);
-  
-  if(['curriculum','suneung2028','universities','roadmap','saegibu'].includes(id)){
-    const cms = lsGet('hs_cms_'+id, '');
-    const el = document.getElementById('cms-'+id);
-    if(cms){el.innerHTML='<div class="alert alert-info">📢 <strong>안내:</strong> '+escHtml(cms)+'</div>';el.style.display='block';}
-    else{el.style.display='none';}
-  }
+  if(id==='lounge') { renderLounge(); renderTalk(); }
 }
 
 function openCasesAuth(){
@@ -583,14 +584,7 @@ function checkAdminPin(){
 }
 
 function activateAdminMode(){
-  ['curriculum','suneung2028','universities','roadmap','saegibu'].forEach(p=>{
-    const el=document.getElementById('cms-'+p);
-    if(el)el.style.display='';
-  });
   document.getElementById('qna-admin-panel').style.display='flex';
-  const ap=document.getElementById('cases-admin-panel');
-  if(ap) ap.style.display='flex';
-  document.getElementById('cases-pw-display').value=state.casesPassword;
   const al=document.getElementById('admin-link');
   al.style.color='#ffe066';al.style.fontWeight='700';
   al.textContent='관리자 ON';
@@ -645,34 +639,6 @@ function saveAnswer(i){
   state.qnaList[i].answer=t;
   lsSet('hs_qna_list',state.qnaList);
   renderQna();
-  showAlert('qna-alert','답변이 저장되었습니다.','success');
-}
-
-function adminDeleteQna(i){
-  if(confirm('이 게시글을 삭제하시겠습니까?')){
-    state.qnaList.splice(i,1);
-    lsSet('hs_qna_list',state.qnaList);
-    renderQna();
-  }
-}
-
-function openQnaEdit(i){
-  state.currentQnaEdit=i;
-  document.getElementById('qna-edit-pw').value='';
-  document.getElementById('qna-edit-error').style.display='none';
-  document.getElementById('qna-edit-title').textContent='게시글 삭제 — '+state.qnaList[i].title;
-  document.getElementById('qna-delete-btn').onclick=()=>{
-    if(document.getElementById('qna-edit-pw').value===state.qnaList[i].pw){
-      state.qnaList.splice(i,1);
-      lsSet('hs_qna_list',state.qnaList);
-      closeModal('modal-qna-edit');
-      renderQna();
-      showAlert('qna-alert','게시글이 삭제되었습니다.','success');
-    } else {
-      document.getElementById('qna-edit-error').style.display='block';
-    }
-  };
-  document.getElementById('modal-qna-edit').style.display='flex';
 }
 
 function submitQna(){
@@ -680,34 +646,74 @@ function submitQna(){
   const pw=document.getElementById('qna-pw').value.trim();
   const title=document.getElementById('qna-title').value.trim();
   const body=document.getElementById('qna-content').value.trim();
-  if(!name||!pw||!title||!body){showAlert('qna-alert','모든 항목을 입력해주세요.','error');return;}
-  if(pw.length<4){showAlert('qna-alert','비밀번호는 4자리 이상으로 설정해주세요.','error');return;}
+  if(!name||!pw||!title||!body){alert('모든 항목을 입력해주세요.');return;}
   const now=new Date();
   const date=`${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
   state.qnaList.unshift({id:Date.now(),name,pw,title,body,answer:'',date});
   lsSet('hs_qna_list',state.qnaList);
   ['qna-name','qna-pw','qna-title','qna-content'].forEach(id=>document.getElementById(id).value='');
   renderQna();
-  showAlert('qna-alert','질문이 등록되었습니다. 선생님이 확인 후 답변드립니다.','success');
 }
 
 function renderLounge(){
   const list=document.getElementById('lounge-list');
   list.innerHTML='';
-  if(!state.loungeList.length){list.innerHTML='<p style="color:#5a7a9a;text-align:center;padding:24px">게시글이 없습니다.</p>';return;}
   state.loungeList.forEach((p,i)=>{
     const div=document.createElement('div');
     div.className='lounge-post';
+    let voteHtml = '';
+    if(p.cat==='투표' && p.vote){
+      const total = p.vote.counts.reduce((a,b)=>a+b,0);
+      voteHtml = `<div class="vote-box"><div class="vote-title">📊 투표 진행 중</div>`;
+      p.vote.options.forEach((opt, idx)=>{
+        const pct = total===0?0:Math.round((p.vote.counts[idx]/total)*100);
+        voteHtml += `
+          <div class="vote-option" onclick="castVote(${i}, ${idx})">
+            <span>${escHtml(opt)}</span>
+            <span>${pct}% (${p.vote.counts[idx]}명)</span>
+          </div>
+          <div class="vote-bar-bg"><div class="vote-bar-fill" style="width:${pct}%"></div></div>`;
+      });
+      voteHtml += `</div>`;
+    }
     div.innerHTML=`
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
         <span class="tag tag-blue">${escHtml(p.cat)}</span>
-        <span style="font-size:12px;color:#aaa">${p.date}</span>
-        <button class="btn btn-sm btn-danger" style="margin-left:auto" onclick="deleteLounge(${i})">삭제</button>
+        <span style="font-size:11px;color:#aaa">${p.date}</span>
+        <button class="btn btn-sm btn-danger" style="margin-left:auto; padding:2px 6px; font-size:10px;" onclick="deleteLounge(${i})">삭제</button>
       </div>
-      <h4>${escHtml(p.title)}</h4>
-      <p style="margin-top:4px">${escHtml(p.body)}</p>`;
+      <h4 style="font-size:13px;">${escHtml(p.title)}</h4>
+      <p style="margin-top:4px; font-size:12px;">${escHtml(p.body)}</p>
+      ${voteHtml}`;
     list.appendChild(div);
   });
+}
+
+function castVote(postIdx, optIdx){
+  const p = state.loungeList[postIdx];
+  p.vote.counts[optIdx]++;
+  lsSet('hs_lounge_list', state.loungeList);
+  renderLounge();
+}
+
+function submitLounge(){
+  const title=document.getElementById('lounge-title').value.trim();
+  const body=document.getElementById('lounge-content').value.trim();
+  const cat=document.getElementById('lounge-cat').value;
+  if(!title||!body){alert('제목과 내용을 입력해주세요.');return;}
+  const now=new Date();
+  const date=`${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
+  let vote = null;
+  if(cat==='투표'){
+    const opts = body.split(',').map(s=>s.trim()).filter(s=>s);
+    if(opts.length<2){alert('투표 선택지를 쉼표(,)로 구분하여 2개 이상 입력해주세요.');return;}
+    vote = {options:opts, counts:opts.map(()=>0), voted:[]};
+  }
+  state.loungeList.unshift({id:Date.now(),title,body,cat,date,vote});
+  lsSet('hs_lounge_list',state.loungeList);
+  document.getElementById('lounge-title').value='';
+  document.getElementById('lounge-content').value='';
+  renderLounge();
 }
 
 function deleteLounge(i){
@@ -718,50 +724,40 @@ function deleteLounge(i){
   }
 }
 
-function submitLounge(){
-  const title=document.getElementById('lounge-title').value.trim();
-  const body=document.getElementById('lounge-content').value.trim();
-  const cat=document.getElementById('lounge-cat').value;
-  if(!title||!body){alert('제목과 내용을 입력해주세요.');return;}
+function renderTalk(){
+  const box=document.getElementById('talk-messages');
+  box.innerHTML='';
+  state.talkList.forEach(t=>{
+    const div=document.createElement('div');
+    div.className=`msg ${t.me?'msg-me':'msg-other'}`;
+    div.innerHTML=`
+      <div style="font-weight:700; font-size:11px; margin-bottom:2px;">${escHtml(t.name)}</div>
+      <div>${escHtml(t.msg)}</div>
+      <div class="msg-info"><span>${t.date}</span></div>`;
+    box.appendChild(div);
+  });
+  box.scrollTop=box.scrollHeight;
+}
+
+function sendTalk(){
+  const input=document.getElementById('talk-input');
+  const msg=input.value.trim();
+  if(!msg)return;
   const now=new Date();
-  const date=`${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
-  state.loungeList.unshift({id:Date.now(),title,body,cat,date});
-  lsSet('hs_lounge_list',state.loungeList);
-  document.getElementById('lounge-title').value='';
-  document.getElementById('lounge-content').value='';
-  renderLounge();
-}
-
-function openCmsModal(page){
-  state.currentCmsPage=page;
-  const labels={curriculum:'교육과정',suneung2028:'2028 대입',universities:'주요 대학',roadmap:'전공 로드맵',saegibu:'생기부 가이드'};
-  document.getElementById('cms-page-label').textContent='['+labels[page]+'] 페이지의 추가 공지 문구를 수정합니다.';
-  document.getElementById('cms-content').value=lsGet('hs_cms_'+page,'');
-  document.getElementById('cms-alert').innerHTML='';
-  document.getElementById('modal-cms').style.display='flex';
-}
-
-function saveCms(){
-  lsSet('hs_cms_'+state.currentCmsPage,document.getElementById('cms-content').value);
-  document.getElementById('cms-alert').innerHTML='<div class="alert alert-success">✅ 저장되었습니다.</div>';
-  setTimeout(()=>closeModal('modal-cms'),1000);
+  const time=`${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+  state.talkList.push({id:Date.now(), name:'나', msg, date:time, me:true});
+  lsSet('hs_talk_list', state.talkList);
+  input.value='';
+  renderTalk();
 }
 
 function changeCasesPassword(){
-  const nw=prompt('새 입장 암호를 입력하세요.\n(현재 암호: '+state.casesPassword+')');
+  const nw=prompt('새 입장 암호를 입력하세요.');
   if(nw&&nw.trim()){
     state.casesPassword=nw.trim();
     lsSet('hs_cases_pw',state.casesPassword);
-    document.getElementById('cases-pw-display').value=state.casesPassword;
-    alert('✅ 입장 암호가 변경되었습니다.\n새 암호: '+state.casesPassword);
+    alert('✅ 암호가 변경되었습니다.');
   }
-}
-
-function showAlert(containerId,msg,type){
-  const el=document.getElementById(containerId);
-  if(!el)return;
-  el.innerHTML=`<div class="alert alert-${type}">${msg}</div>`;
-  setTimeout(()=>{if(el)el.innerHTML=''},3500);
 }
 
 document.getElementById('cases-input').addEventListener('keydown',e=>{if(e.key==='Enter')checkCasesPassword();});
@@ -769,7 +765,6 @@ document.getElementById('admin-pin').addEventListener('keydown',e=>{if(e.key==='
 document.getElementById('lounge-pin').addEventListener('keydown',e=>{if(e.key==='Enter')checkLoungePin();});
 
 renderQna();
-renderLounge();
 </script>
 </body>
 </html>
