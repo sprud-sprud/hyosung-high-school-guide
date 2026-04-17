@@ -147,7 +147,7 @@ select.form-input{height:38px;cursor:pointer}
 .msg{max-width:85%;padding:8px 12px;border-radius:12px;font-size:13px;line-height:1.5;position:relative}
 .msg-other{background:white;align-self:flex-start;border-bottom-left-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,0.05)}
 .msg-me{background:#ffe066;color:#4a3a00;align-self:flex-end;border-bottom-right-radius:2px;box-shadow:0 1px 2px rgba(0,0,0,0.05)}
-.msg-info{font-size:10px;color:#8aaac8;margin-top:4px;display:flex;justify-content:space-between}
+.msg-info{font-size:10px;color:#8aaac8;margin-top:4px;display:flex;justify-content:space-between;align-items:center}
 .talk-input-area{padding:12px;background:white;border-top:1px solid #dce8f5;display:flex;gap:8px}
 .talk-input{flex:1;border:1px solid #c8daf0;border-radius:20px;padding:8px 14px;font-size:13px;outline:none}
 .talk-input:focus{border-color:#1a6fd4}
@@ -176,7 +176,8 @@ select.form-input{height:38px;cursor:pointer}
       <button class="nav-btn" onclick="showPage('saegibu')">생기부가이드</button>
       <button class="nav-btn" onclick="openCasesAuth()">진학사례</button>
       <button class="nav-btn" onclick="showPage('qna')">학부모Q&A</button>
-     <button class="nav-btn" id="lounge-tab" onclick="openLoungeAuth()">교사라운지</button>    </div>
+      <button class="nav-btn" id="lounge-tab" onclick="openLoungeAuth()">교사라운지</button>
+    </div>
   </nav>
 
   <main class="main">
@@ -302,7 +303,7 @@ select.form-input{height:38px;cursor:pointer}
 
     <!-- Roadmap -->
     <div id="page-roadmap" class="page">
-      <h2 class="section-title">전공별 로드맵</h2>
+      <h2 class="section-title">전공로드맵</h2>
       <p class="section-sub">희망 전공에 따른 최적의 과목 선택 가이드입니다.</p>
       <div id="cms-roadmap" style="display:none;margin-bottom:16px"></div>
       <div class="roadmap-grid">
@@ -323,7 +324,7 @@ select.form-input{height:38px;cursor:pointer}
 
     <!-- Saegibu -->
     <div id="page-saegibu" class="page">
-      <h2 class="section-title">생기부 가이드</h2>
+      <h2 class="section-title">생기부가이드</h2>
       <p class="section-sub">나만의 스토리가 담긴 차별화된 학생부 관리법입니다.</p>
       <div id="cms-saegibu" style="display:none;margin-bottom:16px"></div>
       <div class="section-block">
@@ -499,6 +500,17 @@ select.form-input{height:38px;cursor:pointer}
   </div>
 </div>
 
+<div id="modal-talk-name" class="modal-overlay" style="display:none">
+  <div class="modal">
+    <h2>교사 Talk 이름 설정</h2>
+    <p>메시지 전송 시 표시될 성함이나 닉네임을 입력하세요.</p>
+    <input type="text" id="talk-name-input" placeholder="예: 김교사, 진학부장">
+    <div class="modal-btns">
+      <button class="btn btn-primary" onclick="saveTalkName()">저장 후 전송</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const lsGet=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch{return d}};
 const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
@@ -509,6 +521,7 @@ const state = {
   loungeUnlocked: lsGet('hs_lounge_unlocked', false),
   casesPassword: lsGet('hs_cases_pw', 'hs2026'),
   loungePin: '6240',
+  teacherName: lsGet('hs_teacher_name', ''),
   qnaList: lsGet('hs_qna_list', [
     {id:1, name:'김철수 학부모', pw:'1234', title:'고교학점제에서 내신 관리가 더 어려워지지 않나요?', body:'내신이 5등급제로 바뀌면 변별력이 떨어질까 봐 걱정입니다.', answer:'효성고는 서·논술형 평가 비중을 확대하고 있습니다.', date:'2025.03.12'}
   ]),
@@ -587,6 +600,11 @@ function activateAdminMode(){
   const al=document.getElementById('admin-link');
   al.style.color='#ffe066';al.style.fontWeight='700';
   al.textContent='관리자 ON';
+  renderQna();
+  if(document.getElementById('page-lounge').classList.contains('active')){
+    renderLounge();
+    renderTalk();
+  }
   alert('✅ 관리자 모드가 활성화되었습니다.');
 }
 
@@ -626,6 +644,14 @@ function renderQna(){
       </div>`:''}`;
     list.appendChild(div);
   });
+}
+
+function adminDeleteQna(i){
+  if(confirm('관리자 권한으로 이 질문을 삭제하시겠습니까?')){
+    state.qnaList.splice(i,1);
+    lsSet('hs_qna_list',state.qnaList);
+    renderQna();
+  }
 }
 
 function toggleAnsForm(i){
@@ -679,7 +705,7 @@ function renderLounge(){
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
         <span class="tag tag-blue">${escHtml(p.cat)}</span>
         <span style="font-size:11px;color:#aaa">${p.date}</span>
-        <button class="btn btn-sm btn-danger" style="margin-left:auto; padding:2px 6px; font-size:10px;" onclick="deleteLounge(${i})">삭제</button>
+        ${state.isAdmin?`<button class="btn btn-sm btn-danger" style="margin-left:auto; padding:2px 6px; font-size:10px;" onclick="deleteLounge(${i})">관리자 삭제</button>`:''}
       </div>
       <h4 style="font-size:13px;">${escHtml(p.title)}</h4>
       <p style="margin-top:4px; font-size:12px;">${escHtml(p.body)}</p>
@@ -726,28 +752,54 @@ function deleteLounge(i){
 function renderTalk(){
   const box=document.getElementById('talk-messages');
   box.innerHTML='';
-  state.talkList.forEach(t=>{
+  state.talkList.forEach((t, i)=>{
     const div=document.createElement('div');
     div.className=`msg ${t.me?'msg-me':'msg-other'}`;
     div.innerHTML=`
       <div style="font-weight:700; font-size:11px; margin-bottom:2px;">${escHtml(t.name)}</div>
       <div>${escHtml(t.msg)}</div>
-      <div class="msg-info"><span>${t.date}</span></div>`;
+      <div class="msg-info">
+        <span>${t.date}</span>
+        ${state.isAdmin?`<span style="color:#a00; cursor:pointer; margin-left:8px; font-weight:700;" onclick="deleteTalk(${i})">삭제</span>`:''}
+      </div>`;
     box.appendChild(div);
   });
   box.scrollTop=box.scrollHeight;
+}
+
+function deleteTalk(i){
+  if(confirm('관리자 권한으로 이 메시지를 삭제하시겠습니까?')){
+    state.talkList.splice(i,1);
+    lsSet('hs_talk_list', state.talkList);
+    renderTalk();
+  }
 }
 
 function sendTalk(){
   const input=document.getElementById('talk-input');
   const msg=input.value.trim();
   if(!msg)return;
+  
+  if(!state.teacherName){
+    document.getElementById('modal-talk-name').style.display='flex';
+    return;
+  }
+  
   const now=new Date();
   const time=`${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
-  state.talkList.push({id:Date.now(), name:'나', msg, date:time, me:true});
+  state.talkList.push({id:Date.now(), name:state.teacherName, msg, date:time, me:true});
   lsSet('hs_talk_list', state.talkList);
   input.value='';
   renderTalk();
+}
+
+function saveTalkName(){
+  const name = document.getElementById('talk-name-input').value.trim();
+  if(!name){alert('이름을 입력해주세요.');return;}
+  state.teacherName = name;
+  lsSet('hs_teacher_name', name);
+  closeModal('modal-talk-name');
+  sendTalk();
 }
 
 function changeCasesPassword(){
