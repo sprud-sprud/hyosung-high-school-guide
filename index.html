@@ -517,8 +517,8 @@ const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
 
 const state = {
   isAdmin: false,
-  casesUnlocked: lsGet('hs_cases_unlocked', false),
-  loungeUnlocked: lsGet('hs_lounge_unlocked', false),
+  casesUnlocked: false,
+  loungeUnlocked: false,
   casesPassword: lsGet('hs_cases_pw', 'hs2026'),
   loungePin: '6240',
   teacherName: lsGet('hs_teacher_name', ''),
@@ -547,7 +547,7 @@ function showPage(id){
 }
 
 function openCasesAuth(){
-  if(state.casesUnlocked || state.isAdmin){showPage('cases');return;}
+  if(state.isAdmin){showPage('cases');return;}
   document.getElementById('cases-input').value='';
   document.getElementById('cases-error').style.display='none';
   document.getElementById('modal-cases').style.display='flex';
@@ -563,7 +563,7 @@ function checkCasesPassword(){
 }
 
 function openLoungeAuth(){
-  if(state.loungeUnlocked || state.isAdmin){showPage('lounge');return;}
+  if(state.isAdmin){showPage('lounge');return;}
   document.getElementById('lounge-pin').value='';
   document.getElementById('lounge-error').style.display='none';
   document.getElementById('modal-lounge').style.display='flex';
